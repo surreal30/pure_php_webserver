@@ -1,4 +1,21 @@
-$server = new Server('127.0.0.1', 80);
+<?php
+
+use Surreal\PurePhpServer\Server;
+use Surreal\PurePhpServer\Request;
+use Surreal\PurePhpServer\Response;
+
+array_shift($argv);
+
+if(empty($argv))
+{
+	$port = 80;
+}
+else
+{
+	$port = array_shift($argv);
+}
+
+$server = new Server('127.0.0.1', $port);
 
 $server->listen(function(Request $request))
 {
