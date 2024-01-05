@@ -1,0 +1,10 @@
+{
+    "name": "surreal/pure_php_server",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Surreal\\PurePhpServer\\": "src/"
+        }
+    },
+    "require": {}
+}
