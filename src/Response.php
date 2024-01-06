@@ -1,6 +1,6 @@
 <?php
 
-namespace Surreal\PurePhpServer;
+namespace PurePhpServer;
 
 class Response
 {
@@ -74,29 +74,34 @@ class Response
 		$this->header('Date', gmdate('D, d M Y H:i:s T'));
 		$this->header('Content-Type', 'text/html; charset=utf-8');
 		$this->header('Server', 'PHPServer/1.0.0');
+	}
 
-		public function header($key, $value)
+	public static function error($status)
+	{
+		return new static("<h1>PHPServer: " . $status . " - " . static::$statusCodes[$status] . "</h1>", $status);
+	}
+
+	public function header($key, $value)
+	{
+		$this->headers[ucfirst($key)] = $value;
+	}
+
+	public function buildHeaderString()
+	{
+		$lines = [];
+
+		$lines[] = "HTTP/1.1 " . $this->status . " " . static::$statusCodes[$this->status];
+
+		foreach($this->headers as $key => $value)
 		{
-			$this->headers[ucfirst($key)] = $value;
+			$lines[] = $key . ":= " . $value;
 		}
 
-		public function buildHeaderString()
-		{
-			$lines = [];
+		return implode(" \r\n", $lines) . "\r\n\r\n";
+	}
 
-			$lines[] = "HTTP/1.1 " . $this->status . " " . static::$statusCodes[$this->status];
-
-			foreach($this->headers as $key => $value)
-			{
-				$lines[] = $key . ":= " . $value;
-			}
-
-			return implode(" \r\n", $lines) . "\r\n\r\n";
-		}
-
-		public function __toString()
-		{
-			return $this->buildHeaderString().$this->body;
-		}
+	public function __toString()
+	{
+		return $this->buildHeaderString().$this->body;
 	}
 }
