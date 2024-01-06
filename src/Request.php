@@ -43,6 +43,8 @@ class Request
 		// Split uri and parameters
 		@list($this->uri, $params) = explode('?', $uri);
 
+		is_null($params) ? $params = ' ' : $params;
+
 		// parse the parameters
 		parse_str($params, $this->parameters);
 	}
