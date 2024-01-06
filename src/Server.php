@@ -1,12 +1,24 @@
 <?php
 
-namespace Surreal\PurePhpServer;
+namespace PurePhpServer;
+
+use \Exception;
+use PurePhpServer\Request;
 
 class Server
 {
 	protected $host = null;
 	protected $port = null;
 	protected $socket = null;
+
+	public function __construct($host, $port)
+	{
+		$this->host = $host;
+		$this->port = (int) $port;
+
+		$this->createSocket();
+		$this->bind();
+	}
 
 	// Create socket
 	protected function createSocket()
@@ -23,14 +35,7 @@ class Server
 		}
 	}
 
-	public function __constructor($host, $port)
-	{
-		$this->host = $host;
-		$this->port = (int) $port;
 
-		$this->createSocket();
-		$this->bind();
-	}
 
 	public function listen($callback)
 	{
@@ -56,7 +61,7 @@ class Server
 
 			$response = call_user_func($callback, $request);
 
-			if(!response || $response instanceof Response)
+			if(!$response || $response instanceof Response)
 			{
 				$response = Response::error(404);
 			}
