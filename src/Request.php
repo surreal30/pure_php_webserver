@@ -1,6 +1,8 @@
 <?php
 
-namespace Surreal\PurePhpServer;
+namespace PurePhpServer;
+
+use \Exception;
 
 class Request
 {
