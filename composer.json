@@ -3,7 +3,7 @@
     "type": "project",
     "autoload": {
         "psr-4": {
-            "Surreal\\PurePhpServer\\": "src/"
+            "PurePhpServer\\": "src/"
         }
     },
     "require": {}
