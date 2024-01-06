@@ -1,8 +1,10 @@
 <?php
 
-use Surreal\PurePhpServer\Server;
-use Surreal\PurePhpServer\Request;
-use Surreal\PurePhpServer\Response;
+use PurePhpServer\Server;
+use PurePhpServer\Request;
+use PurePhpServer\Response;
+
+require 'vendor/autoload.php';
 
 array_shift($argv);
 
